@@ -5,6 +5,7 @@ pipeline {
         stage("Install Dependencies") {
             steps {
                 dir("my-app") {
+                    sh "rm -rf node_modules package-lock.json"
                     sh "npm install"
                 }
             }
