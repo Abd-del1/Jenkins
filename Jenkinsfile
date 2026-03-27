@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage("Install Dependencies") {
             steps {
-                dir("Demo_Jenkins/my-app") {
+                dir("my-app") {
                     sh "npm install"
                 }
             }
@@ -12,7 +12,7 @@ pipeline {
 
         stage("Build") {
             steps {
-                dir("Demo_Jenkins/my-app") {
+                dir("my-app") {
                     sh "npm run build"
                 }
             }
