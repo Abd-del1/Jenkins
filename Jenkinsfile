@@ -2,21 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage("Checkout") {
-            steps {
-                git url: "https://github.com/Abd-del1/Jenkins.git"
-            }
-        }
-
         stage("Install Dependencies") {
             steps {
-                sh "npm install"
+                dir("Demo_Jenkins/my-app") {
+                    sh "npm install"
+                }
             }
         }
 
         stage("Build") {
             steps {
-                sh "npm run build"
+                dir("Demo_Jenkins/my-app") {
+                    sh "npm run build"
+                }
             }
         }
     }
