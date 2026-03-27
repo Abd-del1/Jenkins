@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage("Checkout"){
             steps{
-                git url: "https://github.com/MdMaaz2003/Demo_Jenkins.git"
+                git url: "https://github.com/Abd-del1/Jenkins.git"
             }
         stage("Install Dependencies"){
              steps{
