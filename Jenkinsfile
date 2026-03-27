@@ -5,6 +5,7 @@ pipeline{
             steps{
                 git url: "https://github.com/Abd-del1/Jenkins.git"
             }
+        }
         stage("Install Dependencies"){
              steps{
                 sh "npm install"
