@@ -1,1 +1,24 @@
-🚀 Built and automated a full CI/CD pipeline using Jenkins and Docker, where I designed an end-to-end workflow that pulls code from GitHub, installs dependencies, builds a production-ready frontend app (Node.js + Vite), creates an optimized multi-stage Docker image, authenticates with DockerHub, and pushes the image automatically; this project helped me gain hands-on experience with real-world DevOps practices including pipeline debugging, credential management, environment setup, and containerization, while strengthening my understanding of how production-grade build and deployment systems work — check it out here: [https://github.com/Abd-del1/Jenkins.git](https://github.com/Abd-del1/Jenkins.git) #DevOps #Jenkins #Docker #CI_CD #CloudComputing #SoftwareEngineering #AWS #OpenToWork
+🔧 What I built:
+• Created a production-ready frontend app (Node.js + Vite)
+• Wrote a multi-stage Dockerfile for optimized builds
+• Built a Jenkins pipeline to fully automate the workflow
+
+⚙️ Pipeline Flow:
+1️⃣ Pull latest code from GitHub
+2️⃣ Install dependencies & build the app
+3️⃣ Build Docker image using multi-stage Dockerfile
+4️⃣ Authenticate with DockerHub
+5️⃣ Push image to DockerHub
+6️⃣ (Ready for deployment stage)
+
+🐳 Tech Stack:
+• Jenkins (CI/CD automation)
+• Docker (containerization)
+• Node.js / Vite (frontend build)
+• GitHub (version control)
+
+💡 Key Learnings:
+• Debugging real-world CI/CD issues (credentials, agents, environment setup)
+• Docker image optimization using multi-stage builds
+• Secure credential handling in Jenkins
+• Automating build → package → push workflow
