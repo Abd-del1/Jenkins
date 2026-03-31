@@ -2,7 +2,7 @@ pipeline {
     agent { label 'abdullah' }
 
     environment {
-        DOCKER_IMAGE = "abdullah7434/Jenkins"
+        DOCKER_IMAGE = "abdullah7434/jenkins"
         CONTAINER_NAME = "demo-container"
     }
 
