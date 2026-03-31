@@ -1,34 +1,64 @@
 pipeline {
-    agent any
+    agent { label 'abdullah' }
+
+    environment {
+        DOCKER_IMAGE = "abdullah7434/Jenkins"
+        CONTAINER_NAME = "demo-container"
+    }
 
     stages {
-        stage("Install Dependencies") {
+        stage("Checkout") {
             steps {
-                dir("my-app") {
-                    sh "rm -rf node_modules package-lock.json"
-                    sh "npm install"
+                git branch: "main", url: "https://github.com/Abd-del1/Jenkins.git"
+            }
+        }
+
+        stage("Install & Build") {
+            steps {
+                // Combine into one directory context to ensure Node 20+ is used
+                dir('my-app') {
+                    sh 'npm install'
+                    sh 'npm run build'
                 }
             }
         }
 
-        stage("Build") {
+        stage("Build Docker Image") {
             steps {
-                dir("my-app") {
-                    sh "npm run build"
+                // Ensure Docker build happens INSIDE the my-app folder where Dockerfile lives
+                dir('my-app') {
+                    sh "docker build -t ${DOCKER_IMAGE} ."
                 }
+            }
+        }
+
+        stage("Login to DockerHub") {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-creds', // Make sure this ID exists in Jenkins
+                    usernameVariable: 'DOCKER_USER', // This is the VARIABLE name, not your username
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    // Use the variables defined above
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                }
+            }
+        }
+
+        stage("Push & Deploy") {
+            steps {
+                sh "docker push ${DOCKER_IMAGE}"
+                sh """
+                docker stop ${CONTAINER_NAME} || true
+                docker rm ${CONTAINER_NAME} || true
+                docker run -d -p 80:80 --name ${CONTAINER_NAME} ${DOCKER_IMAGE}
+                """
             }
         }
     }
 
     post {
-        always {
-            echo "========always========"
-        }
-        success {
-            echo "========A executed successfully========"
-        }
-        failure {
-            echo "========A execution failed========"
-        }
+        success { echo "✅ Pipeline executed successfully" }
+        failure { echo "❌ Pipeline execution failed" }
     }
 }
